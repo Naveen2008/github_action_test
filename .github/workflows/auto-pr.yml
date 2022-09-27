@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - x
-
 jobs:
   updateAuthor:
     runs-on: ubuntu-latest
