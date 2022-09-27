@@ -2,7 +2,7 @@ name: Demo to create auto-pr
 on: 
   push:
     branches:
-      -main
+      - x
       
 jobs:
   updateAuthor:
