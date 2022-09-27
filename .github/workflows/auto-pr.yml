@@ -1,28 +1,19 @@
-name: Demo to create auto-pr
+name: Pull Request Action
 on:
   push:
     branches:
-      - xyz
+      - feature/*
 
 jobs:
-  updateAuthor:
+  create-pull-request:
     runs-on: ubuntu-latest
     steps:
-      - name: checking out code
+      - name: Check out repository code
         uses: actions/checkout@v2
-
-      - name: extract git commit data
-        uses: rlespinasse/git-commit-data-action@v1.x
-      - name: Update author
-        run: echo ${{env.GIT_COMMIT_AUTHOR_NAME}} > AUTHOR
-      - name: Raise PR
-        uses: peter-evans/create-pull-request@v3
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
         with:
-          branch: "auto-pr-branch"
-          base: xyz
-          title: "demo for auto pr"
-          commiter: ${{env.GIT_COMMIT_AUTHOR_NAME}} <${{env.GIT_COMMIT_AUTHOR_EMAIL}}">
-          author: ${{env.GIT_COMMIT_AUTHOR_NAME}} <${{env.GIT_COMMIT_AUTHOR_EMAIL}}">
-          body: This is a auto pr
-          token: ${{secrets.GITHUB_TOKEN}}
-          delete-branch: true
+          destination_branch: "develop"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_label: "feature, automated pr"
+          pr_title: "[Example] Simple demo"
