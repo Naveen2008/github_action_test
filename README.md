@@ -2,4 +2,4 @@
 
 what is git hub actions
 testing git hub action!!!workin$%
-git test
+git
