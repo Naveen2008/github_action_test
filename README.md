@@ -1,3 +1,3 @@
 # github_action_test
-
-testing git hub action!!!@@@@&&&&&&&$$$$%%%%%%@@@@@^^^^^
+what is git hub actions
+testing git hub action!!!workin$%
