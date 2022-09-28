@@ -14,7 +14,7 @@ jobs:
      - name: update autjoe info
        run: echo ${{env.GIT_COMMIT_AUTHOR_NAME}} > AUTHOR
      - name: raise pr
-       uses: peter-evans/creste-pull-request@v3
+       uses: peter-evans/create-pull-request@v3
        with: 
          branch: 'auto-pr-branch'
          base: main
