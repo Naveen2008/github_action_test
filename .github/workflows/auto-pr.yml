@@ -22,7 +22,6 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
           branch: example-patches
-          delete-branch: true
           title: '[Example] Update report'
           body: |
             Update report
@@ -38,5 +37,4 @@ jobs:
           team-reviewers: |
             owners
             maintainers
-          milestone: 10
-          draft: false
+          
