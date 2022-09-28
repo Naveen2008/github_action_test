@@ -22,8 +22,5 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
           branch: example-patches
-          labels: |
-            automated pr
-  
 
           
