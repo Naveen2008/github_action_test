@@ -38,5 +38,5 @@ jobs:
           team-reviewers: |
             owners
             maintainers
-          milestone: 1
+          milestone: 10
           draft: false
