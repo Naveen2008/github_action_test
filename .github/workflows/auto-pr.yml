@@ -1,13 +1,15 @@
 on:
   push:
     branches:
-      - '*'# Support wildcard matching
+      - test # Support wildcard matching
 
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: extract git commit date
         uses: rlespinasse/git-commit-data-action@v1.x
       - name: update autjoe info
