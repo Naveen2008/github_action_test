@@ -8,8 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        run: git checkout auto-pr-branch
       - name: extract git commit date
         uses: rlespinasse/git-commit-data-action@v1.x
       - name: update autjoe info
@@ -23,7 +22,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: "auto-pr-branch"
+          branch: auto-pr-branch
           base: main
           delete-branch: false
           title: "[Example] Update report"
