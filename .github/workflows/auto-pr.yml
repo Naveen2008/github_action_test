@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - master # Support wildcard matching
+      - main # Support wildcard matching
 
 jobs:
   createPullRequest:
