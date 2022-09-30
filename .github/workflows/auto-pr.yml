@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - 'main' # Support wildcard matching
+      - "master" # Support wildcard matching
 
 jobs:
   createPullRequest:
@@ -21,10 +21,10 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: 'auto-pr-branch'
+          branch: "auto-pr-branch"
           base: main
           delete-branch: false
-          title: '[Example] Update report'
+          title: "[Example] Update report"
           body: This is a demo auto-pr
           labels: |
             report
