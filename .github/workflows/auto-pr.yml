@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        run: git checkout auto-pr-branch
+        with:
+          run: git checkout auto-pr-branch
       - name: extract git commit date
         uses: rlespinasse/git-commit-data-action@v1.x
       - name: update autjoe info
