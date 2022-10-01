@@ -1,36 +1,47 @@
+name: get latest release of grafana and prometheus
 on:
-  push:
-    branches:
-      - test # Support wildcard matching
+  schedule:
+    - cron: "00 06 * * 5" #every friday at 11:30 AM IST/ 6 AM UST
+  workflow_dispatch:
 
 jobs:
-  createPullRequest:
-    runs-on: ubuntu-latest
+  get-latest-releases:
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - name: Get latest release for prometheus
+        id: prometheus
+        uses: oprypin/find-latest-tag@v1
         with:
-          run: git checkout auto-pr-branch
-      - name: extract git commit date
-        uses: rlespinasse/git-commit-data-action@v1.x
-      - name: update autjoe info
-        run: echo ${{env.GIT_COMMIT_AUTHOR_NAME}} > AUTHOR
+          repository: prometheus/prometheus
+      - name: Get latest release for grafana
+        id: grafana
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: grafana/grafana
+
+      - uses: actions/checkout@v2
 
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: Update report
+          commit-message: Updates latest release
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: auto-pr-branch
-          base: main
-          delete-branch: false
-          title: "[Example] Update report"
-          body: This is a demo auto-pr
+          branch: update-latest-release
+          delete-branch: true
+          title: "chore: updates latest release"
+          body: |
+            This PR,
+            - Updates prometheus and grafana as per the latest releases. 
+            - **Note: This is auto-generated PR so please test and verify before merging.**
           labels: |
-            report
+            grfana-latest
+            prometheus-latest
             automated pr
+            release
+          assignees: Naveen2008
           reviewers: Naveen2008
           team-reviewers: |
             owners
