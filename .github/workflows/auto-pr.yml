@@ -1,49 +1,31 @@
 name: get latest release of grafana and prometheus
 on:
   schedule:
-    - cron: "00 06 * * 5" #every friday at 11:30 AM IST/ 6 AM UST
-  workflow_dispatch:
-
+    - cron: "30 11 * * 4" 
 jobs:
-  get-latest-releases:
-    runs-on: ubuntu-20.04
+  build:
+    name: Get latest release
+    runs-on: ubuntu-latest
     steps:
-      - name: Get latest release for prometheus
-        id: prometheus
-        uses: oprypin/find-latest-tag@v1
+      - id: prometheus
+        uses: pozetroninc/github-action-get-latest-release@master
         with:
-          repository: prometheus/prometheus
-      - name: Get latest release for grafana
-        id: grafana
-        uses: oprypin/find-latest-tag@v1
+          repo: prometheus/prometheus
+          excludes: prerelease, draft, beta
+      - id: grafana
+        uses: pozetroninc/github-action-get-latest-release@master
         with:
-          repository: grafana/grafana
-
+          repository: grafana/grafana    
       - uses: actions/checkout@v2
-
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v3
-        with:
-          commit-message: Updates latest release
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          signoff: false
-          branch: update-latest-release
-          delete-branch: true
-          title: "chore: updates latest release"
-          body: |
-            This PR,
-            - Updates prometheus and grafana as per the latest releases. 
-            - **Note: This is auto-generated PR so please test and verify before merging.**
-          labels: |
-            grfana-latest
-            prometheus-latest
-            automated pr
-            release
-          assignees: Naveen2008
-          reviewers: Naveen2008
-          team-reviewers: |
-            owners
-            maintainers
-          draft: false
+      - name: create a file
+        run: |
+          echo "Prometheus latest release is ${{ steps.prometheus.outputs.release }}"
+          echo "Prometheus latest release is ${{ steps.grafana.outputs.release }}"
+#       - uses: docker/build-push-action@v1
+#         with:
+#           username: ${{ secrets.DOCKER_USERNAME }}
+#           password: ${{ secrets.DOCKER_PASSWORD }}
+#           repository: pozetroninc/keydb-timeseries
+#           dockerfile: timeseries.dockerfile
+#           build_args: KEY_DB_VERSION=${{ steps.keydb.outputs.release }}, REDIS_TIME_SERIES_VERSION=${{ steps.timeseries.outputs.release }}
+#           tags: latest, ${{ steps.keydb.outputs.release }}_${{ steps.timeseries.outputs.release }}
