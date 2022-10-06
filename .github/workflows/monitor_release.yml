@@ -1,7 +1,7 @@
 name: get latest release of grafana and prometheus
 on:
   schedule:
-    - cron: "24 18 * * 4" 
+    - cron: "30 18 * * 4" 
 jobs:
   build:
     name: Get latest release
@@ -10,11 +10,11 @@ jobs:
       - id: prometheus
         uses: pozetroninc/github-action-get-latest-release@master
         with:
-          repository: prometheus/prometheus
+          repository: prometheus/https://github.com/prometheus/prometheus/releases
       - id: grafana
         uses: pozetroninc/github-action-get-latest-release@master
         with:
-          repository: grafana/grafana
+          repository: grafana/https://github.com/grafana/grafana/releases
       - uses: actions/checkout@v2
       - name: create a file
         run: |
