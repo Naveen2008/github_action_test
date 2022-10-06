@@ -1,7 +1,7 @@
 name: get latest release of grafana and prometheus
 on:
   schedule:
-    - cron: "10 12 * * 4" 
+    - cron: "24 18 * * 4" 
 jobs:
   build:
     name: Get latest release
@@ -10,7 +10,7 @@ jobs:
       - id: prometheus
         uses: pozetroninc/github-action-get-latest-release@master
         with:
-          repo: prometheus/prometheus
+          repository: prometheus/prometheus
       - id: grafana
         uses: pozetroninc/github-action-get-latest-release@master
         with:
@@ -18,8 +18,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: create a file
         run: |
-          echo "Prometheus latest release is ${{ steps.prometheus.outputs.release }}"
-          echo "Prometheus latest release is ${{ steps.grafana.outputs.release }}"
+          echo "Prometheus latest release is ${{ steps.prometheus.outputs.value }}"
+          echo "Prometheus latest release is ${{ steps.grafana.outputs.value }}"
 #       - uses: docker/build-push-action@v1
 #         with:
 #           username: ${{ secrets.DOCKER_USERNAME }}
