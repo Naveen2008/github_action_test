@@ -15,7 +15,8 @@ jobs:
       - id: grafana
         uses: pozetroninc/github-action-get-latest-release@master
         with:
-          repository: grafana/grafana    
+          repository: grafana/grafana
+          excludes: prerelease, draft, beta
       - uses: actions/checkout@v2
       - name: create a file
         run: |
